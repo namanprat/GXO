@@ -1,0 +1,40 @@
+.anime-link {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.anime-link-label {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.anime-link-label h5 {
+  margin: 0;
+}
+
+.anime-link-icon {
+  width: 4rem;
+  height: 1.25rem;
+  background-color: var(--btn-icon);
+  border-radius: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+a.link-dark {
+  color: var(--text-primary);
+}
+
+a.link-light {
+  color: var(--text-on-dark);
+}
+
+.anime-link.anime-link-dark .anime-link-icon {
+  background-color: var(--text-primary);
+}

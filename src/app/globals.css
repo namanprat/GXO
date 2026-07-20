@@ -1,0 +1,204 @@
+:root {
+  /* primitives */
+  --color-black: #222222;
+  --color-white: #fdfdf5;
+  --color-accent: #999136;
+  --color-accent-dark: #2e2c10;
+
+  /* semantic */
+  --bg-page: var(--color-accent-dark);
+  --bg-what-we-do: var(--color-accent-dark);
+  --bg-preloader: var(--color-accent-dark);
+  --bg-surface: var(--color-white);
+  --bg-overlay: var(--color-accent-dark);
+  --bg-footer: var(--color-accent-dark);
+
+  --text-primary: var(--color-black);
+  --text-on-dark: var(--color-white);
+  --text-muted: #8a8a80;
+
+  --accent-highlight: var(--color-accent-dark);
+
+  --background: var(--bg-page);
+  --background-200: var(--bg-overlay);
+  --foreground: var(--color-white);
+  --foreground-200: var(--text-muted);
+  --btn-icon: var(--accent-highlight);
+
+  --font: "PP Neue Montreal", sans-serif;
+  --font-display: "PP Editorial New", serif;
+
+  /* type scale */
+  --type-display: clamp(2.5rem, 1.815rem + 5.75vw, 9rem);
+  --type-h1: clamp(2.25rem, 1.5rem + 3.5vw, 7rem);
+  --type-h2: clamp(2rem, 1.25rem + 2.25vw, 5rem);
+  --type-h3: clamp(1.5rem, 0.75rem + 1.75vw, 3.5rem);
+  --type-h4: clamp(1.25rem, 0.6rem + 1.2vw, 2.5rem);
+  --type-h5: clamp(1.25rem, 0.9rem + 1vw, 2rem);
+  --type-p: clamp(0.8rem, 0.2rem + 0.7vw, 1.5rem);
+}
+
+@font-face {
+  font-family: "PP Neue Montreal";
+  src: url("/fonts/PPNeueMontreal-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("/fonts/PPEditorialNew-Ultralight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+
+.display,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-display);
+  font-weight: 200;
+  line-height: 1.1;
+  user-select: none;
+}
+
+.display {
+  font-size: var(--type-display);
+  letter-spacing: -0.075rem;
+}
+
+h1 {
+  font-size: var(--type-h1);
+  letter-spacing: -0.05rem;
+}
+
+h2 {
+  font-size: var(--type-h2);
+  letter-spacing: -0.015rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+h3 {
+  font-size: var(--type-h3);
+  letter-spacing: -0.0075rem;
+}
+
+h4 {
+  font-size: var(--type-h4);
+  letter-spacing: -0.01em;
+}
+
+h5 {
+  font-size: var(--type-h5);
+  letter-spacing: -0.01em;
+}
+
+p,
+a {
+  font-family: var(--font);
+  font-size: var(--type-p);
+  font-weight: 500;
+  line-height: 1.4;
+  user-select: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.caps {
+  text-transform: uppercase;
+}
+
+.dark {
+  color: var(--text-on-dark);
+}
+
+.light {
+  color: var(--text-primary);
+}
+
+.revealer {
+  position: relative;
+  width: max-content;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+@media (max-width: 1000px) {
+  .display {
+    letter-spacing: -0.05rem;
+  }
+}
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none !important;
+}
+
+::view-transition-group(root) {
+  z-index: auto !important;
+}
+
+::view-transition-image-pair(root) {
+  isolation: isolate;
+  will-change: transform, opacity, clip-path;
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 10000;
+  animation: none !important;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+  animation: none !important;
+}
