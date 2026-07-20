@@ -12,8 +12,13 @@
   pointer-events: none;
 }
 
-.anime-link-label h5 {
+.anime-link-label p {
   margin: 0;
+  font-family: var(--font);
+  font-size: var(--type-p);
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 1.4;
 }
 
 .anime-link-icon {

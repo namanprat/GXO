@@ -39,7 +39,7 @@
 
 .hero-wordmark {
   margin: 0;
-  line-height: 1;
+  line-height: 0.7;
   color: var(--text-primary);
   white-space: nowrap;
   pointer-events: none;

@@ -26,6 +26,8 @@ const DynamicBackground = () => {
     forceStrength: 0.003,
     maxDisplacement: 100,
     returnForce: 0.025,
+    // brand black #222222
+    particleColor: [0x22 / 255, 0x22 / 255, 0x22 / 255],
   };
 
   useEffect(() => {
@@ -87,7 +89,7 @@ const DynamicBackground = () => {
          vec2 clipSpace = (zeroToOne * 2.0 - 1.0);
          v_color = a_color;
          gl_Position = vec4(clipSpace * vec2(1.0, -1.0), 0.0, 1.0);
-         gl_PointSize = 3.5;
+         gl_PointSize = 4.5;
      }
     `;
 
@@ -219,16 +221,20 @@ const DynamicBackground = () => {
           const pixelIndex = (i * dim + j) * 4;
           const alpha = pixels[pixelIndex + 3];
 
-          if (alpha > 10) {
+          // skip near-black logo canvas fill; keep logo shape only
+          const r = pixels[pixelIndex];
+          const g = pixels[pixelIndex + 1];
+          const b = pixels[pixelIndex + 2];
+          if (alpha > 10 && r + g + b > 40) {
             const x = centerX + (j - dim / 2) * 1.0;
             const y = centerY + (i - dim / 2) * 1.0;
 
             validPositions.push(x, y);
             validColors.push(
-              pixels[pixelIndex] / 255,
-              pixels[pixelIndex + 1] / 255,
-              pixels[pixelIndex + 2] / 255,
-              pixels[pixelIndex + 3] / 255
+              CONFIG.particleColor[0],
+              CONFIG.particleColor[1],
+              CONFIG.particleColor[2],
+              alpha / 255
             );
 
             validParticles.push({

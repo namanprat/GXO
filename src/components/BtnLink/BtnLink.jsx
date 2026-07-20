@@ -27,9 +27,9 @@ const BtnLink = ({ label, route, dark = false }) => {
         }`}
       >
         <div className="anime-link-label">
-          <h5>
+          <p>
             <span>{label}</span>
-          </h5>
+          </p>
         </div>
         <div className="anime-link-icon">
           <IoMdArrowForward color={dark ? "#fff" : "#000"} />

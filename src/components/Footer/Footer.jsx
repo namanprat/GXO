@@ -76,7 +76,7 @@ export default function Footer() {
               onSubmit={(e) => e.preventDefault()}
             >
               <div className="footer-form-roles">
-                <h5 className="footer-form-label">I&apos;m a [select one]</h5>
+                <p className="footer-form-label">I&apos;m a [select one]</p>
                 <div className="footer-form-role-list" role="listbox">
                   {ROLES.map((item) => {
                     const active = role === item;
@@ -154,18 +154,18 @@ export default function Footer() {
 
               <label className="footer-form-consent">
                 <input type="checkbox" name="privacy" />
-                <h5>
+                <p>
                   By checking this box I agree to the{" "}
                   <a href="/faq">Privacy Policy</a>
-                </h5>
+                </p>
               </label>
 
               <button type="submit" className="link-dark">
                 <div className="anime-link anime-link-dark">
                   <div className="anime-link-label">
-                    <h5>
+                    <p>
                       <span>Send Message</span>
-                    </h5>
+                    </p>
                   </div>
                   <div className="anime-link-icon">
                     <IoMdArrowForward color="#fff" />

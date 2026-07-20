@@ -18,20 +18,18 @@
 }
 
 .faq-item {
-  margin-bottom: 1em;
-  padding: 0.25em 1em;
-  border: 1px dashed var(--foreground);
-  border-radius: 1em;
+  margin-bottom: 0;
   opacity: 0;
 }
 
 .faq-question {
-  padding: 1em 0;
+  padding: 1.25em 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
   cursor: pointer;
+  border-bottom: 1px solid var(--foreground);
 }
 
 .faq-question h3 {

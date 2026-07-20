@@ -15,10 +15,10 @@
 }
 
 .footer-main {
-  flex: 1;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  min-height: 0;
+  width: 100%;
 }
 
 .footer-form h5 {
@@ -35,7 +35,8 @@
 }
 
 .footer-socials {
-  flex: 1;
+  flex: 0 0 auto;
+  align-items: flex-start;
 }
 
 .fs-col-lg,
@@ -132,11 +133,11 @@
   border: none;
   background: transparent;
   color: color-mix(in srgb, var(--text-primary) 55%, transparent);
-  font-family: var(--font-display);
-  font-size: var(--type-h5);
-  font-weight: 200;
-  letter-spacing: -0.01em;
-  line-height: 1.1;
+  font-family: var(--font);
+  font-size: var(--type-p);
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 1.4;
   padding: 0.55rem 0.85rem;
   cursor: pointer;
   display: inline-flex;
@@ -213,13 +214,13 @@
   user-select: none;
 }
 
-.footer-form-consent h5 {
+.footer-form-consent p {
   margin: 0;
   color: inherit;
 }
 
 .footer-form-consent input {
-  margin-top: 0.35rem;
+  margin-top: 0.2rem;
   width: 0.9rem;
   height: 0.9rem;
   accent-color: var(--text-primary);
@@ -246,6 +247,15 @@
   width: max-content;
   cursor: pointer;
   text-align: left;
+}
+
+.footer-form button[type="submit"] .anime-link-label p {
+  margin: 0;
+  font-family: var(--font);
+  font-size: var(--type-p);
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 1.4;
 }
 
 @media (max-width: 1000px) {

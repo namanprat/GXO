@@ -126,12 +126,17 @@ export default function Home() {
     const recognitionNav = ScrollTrigger.create({
       trigger: ".recognition",
       start: "top top",
+      end: "bottom top",
       onEnter: () => {
         forceNavWhite = true;
         syncNavColor();
       },
       onEnterBack: () => {
         forceNavWhite = true;
+        syncNavColor();
+      },
+      onLeave: () => {
+        forceNavWhite = false;
         syncNavColor();
       },
       onLeaveBack: () => {

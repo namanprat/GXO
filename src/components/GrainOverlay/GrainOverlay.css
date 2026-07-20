@@ -11,7 +11,7 @@
 
 .grain-overlay::after {
   content: "";
-  background-image: url("/grain.webp");
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png");
   background-repeat: repeat;
   background-size: 30%;
   height: 200%;
