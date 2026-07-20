@@ -106,15 +106,21 @@ export default function Home() {
       );
     }
 
+    // black nav only while What we do (first highlight) is in range
     const whoWeAreNav = ScrollTrigger.create({
       trigger: ".whoweare",
       start: "top 7.5%",
+      end: "bottom top",
       onEnter: () => {
         forceNavBlack = true;
         syncNavColor();
       },
       onEnterBack: () => {
         forceNavBlack = true;
+        syncNavColor();
+      },
+      onLeave: () => {
+        forceNavBlack = false;
         syncNavColor();
       },
       onLeaveBack: () => {
@@ -149,6 +155,7 @@ export default function Home() {
 
     // ponytail: one scrubbed tween, fontSize + x/y — no spacer / manual lerp
     const wordmark = document.querySelector(".hero-wordmark");
+    const heroFooterSm = document.querySelector(".hero-footer-col-sm");
     const slot = document.querySelector(".nav .nav-logo-target");
     const navWordmark = document.querySelector(".nav .nav-logo-wordmark");
     if (!wordmark || !slot || !navWordmark) {
@@ -180,6 +187,7 @@ export default function Home() {
     };
 
     gsap.set(navWordmark, { autoAlpha: 0 });
+    if (heroFooterSm) gsap.set(heroFooterSm, { opacity: 1 });
     measure();
 
     const st = ScrollTrigger.create({
@@ -196,6 +204,7 @@ export default function Home() {
               "position,left,top,x,y,fontSize,width,transform,opacity",
           });
           gsap.set(navWordmark, { autoAlpha: 0 });
+          if (heroFooterSm) gsap.set(heroFooterSm, { opacity: 1 });
           return;
         }
 
@@ -215,6 +224,7 @@ export default function Home() {
           zIndex: 1001,
         });
         gsap.set(navWordmark, { autoAlpha: progress > 0.96 ? 1 : 0 });
+        if (heroFooterSm) gsap.set(heroFooterSm, { opacity: 1 - p });
       },
     });
 
@@ -231,6 +241,7 @@ export default function Home() {
       dynamicBgState.canvasBg = accentLight;
       gsap.set(wordmark, { clearProps: "all" });
       gsap.set(navWordmark, { autoAlpha: 1 });
+      if (heroFooterSm) gsap.set(heroFooterSm, { clearProps: "opacity" });
     };
   }, [contentReady]);
 

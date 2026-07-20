@@ -2,11 +2,16 @@
   position: relative;
   width: 100%;
   min-height: 100svh;
-  padding-top: 6em;
+  padding-top: 0;
   background-color: var(--bg-page);
   color: var(--text-on-dark);
-  overflow: hidden;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+}
+
+/* one viewport of footer — page no longer adds 6em pad on top of 100svh */
+.page.contact .footer {
+  flex: 1;
+  min-height: 100svh;
 }

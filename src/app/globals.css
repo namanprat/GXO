@@ -82,8 +82,7 @@ img {
 h1,
 h2,
 h3,
-h4,
-h5 {
+h4 {
   font-family: var(--font-display);
   font-weight: 200;
   line-height: 1.1;
@@ -116,9 +115,15 @@ h4 {
   letter-spacing: -0.01em;
 }
 
+/* h5 = body (p) + caps */
 h5 {
-  font-size: var(--type-h5);
-  letter-spacing: -0.01em;
+  font-family: var(--font);
+  font-size: var(--type-p);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  user-select: none;
 }
 
 p,

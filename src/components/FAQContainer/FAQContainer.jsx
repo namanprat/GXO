@@ -106,7 +106,7 @@ export default function FAQContainer() {
                 role="button"
                 tabIndex={0}
               >
-                <h3>{item.question}</h3>
+                <h4>{item.question}</h4>
                 <span
                   className="faq-icon"
                   ref={(el) => {

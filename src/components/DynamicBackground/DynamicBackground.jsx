@@ -89,7 +89,7 @@ const DynamicBackground = () => {
          vec2 clipSpace = (zeroToOne * 2.0 - 1.0);
          v_color = a_color;
          gl_Position = vec4(clipSpace * vec2(1.0, -1.0), 0.0, 1.0);
-         gl_PointSize = 4.5;
+         gl_PointSize = 5.5;
      }
     `;
 
@@ -234,7 +234,7 @@ const DynamicBackground = () => {
               CONFIG.particleColor[0],
               CONFIG.particleColor[1],
               CONFIG.particleColor[2],
-              alpha / 255
+              1.0
             );
 
             validParticles.push({
@@ -480,16 +480,14 @@ const DynamicBackground = () => {
   return (
     <canvas
       ref={canvasRef}
+      className="hero-particles"
       style={{
         position: "absolute",
-        top: 0,
-        left: 0,
+        inset: 0,
         width: "100%",
         height: "100%",
-        zIndex: -1,
+        zIndex: 0,
         pointerEvents: "none",
-        backgroundColor: "transparent",
-        mixBlendMode: "normal",
       }}
     />
   );
