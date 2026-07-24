@@ -11,7 +11,7 @@ gsap.registerPlugin(CustomEase);
 CustomEase.create("hop", "0.9, 0, 0.1, 1");
 
 const ROWS = 4;
-const COUNTS = ["00", "27", "65", "98", "99", "GXO Studio"];
+const COUNTS = ["00", "27", "65", "98", "99"];
 
 export default function IntroTransition({ onComplete }) {
   const rootRef = useRef(null);
@@ -47,6 +47,13 @@ export default function IntroTransition({ onComplete }) {
       });
       const progressTl = gsap.timeline({ delay: 0.3 });
 
+      // ponytail: HMR/StrictMode can kill the timeline - never leave overlay stuck
+      const safety = window.setTimeout(() => {
+        gsap.set(rootRef.current, { autoAlpha: 0, pointerEvents: "none" });
+        gsap.set(gridRef.current, { pointerEvents: "none" });
+        onCompleteRef.current?.();
+      }, 12000);
+
       counts.forEach((count, index) => {
         const digits = count.querySelectorAll(".digit .display");
 
@@ -75,7 +82,7 @@ export default function IntroTransition({ onComplete }) {
         );
       });
 
-      // Hold on GXO Studio, then wipe — bottom strip clips the text
+      // Hold on last count, then wipe
       tl.to({}, { duration: 0.45 });
       tl.add(() => {
         gsap.set(progressBar, { autoAlpha: 0 });
@@ -96,6 +103,7 @@ export default function IntroTransition({ onComplete }) {
           duration: 1,
           ease: "hop",
           onComplete: () => {
+            window.clearTimeout(safety);
             gsap.set(gridRef.current, { pointerEvents: "none" });
             onCompleteRef.current?.();
           },
@@ -113,7 +121,11 @@ export default function IntroTransition({ onComplete }) {
         "<"
       );
 
-      return undefined;
+      return () => {
+        window.clearTimeout(safety);
+        tl.kill();
+        progressTl.kill();
+      };
     },
     { scope: rootRef }
   );
@@ -139,24 +151,15 @@ export default function IntroTransition({ onComplete }) {
               />
               {isBottom && (
                 <div className="intro-counter" ref={counterRef}>
-                  {COUNTS.map((value) => {
-                    const isBrand = value === "GXO Studio";
-                    return (
-                      <div className="count" key={value}>
-                        {isBrand ? (
-                          <div className="digit">
-                            <h1 className="display">{value}</h1>
-                          </div>
-                        ) : (
-                          value.split("").map((digit, di) => (
-                            <div className="digit" key={`${value}-${di}`}>
-                              <h1 className="display">{digit}</h1>
-                            </div>
-                          ))
-                        )}
-                      </div>
-                    );
-                  })}
+                  {COUNTS.map((value) => (
+                    <div className="count" key={value}>
+                      {value.split("").map((digit, di) => (
+                        <div className="digit" key={`${value}-${di}`}>
+                          <h1 className="display">{digit}</h1>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
                 </div>
               )}
             </div>

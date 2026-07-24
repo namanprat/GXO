@@ -75,8 +75,8 @@ export default function FAQContainer() {
   };
 
   return (
-    <div className="faq-container">
-      <div className="faq-wrapper">
+    <div className="faq-container layout-grid">
+      <div className="faq-wrapper col-span-8 col-start-3">
         <div className="faq-title">
           <Copy animateOnScroll={false} delay={0.5}>
             <h2>

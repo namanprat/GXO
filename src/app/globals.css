@@ -26,16 +26,60 @@
   --btn-icon: var(--accent-highlight);
 
   --font: "PP Neue Montreal", sans-serif;
-  --font-display: "PP Editorial New", serif;
+  --font-display: "PP Neue Montreal", sans-serif;
 
-  /* type scale */
-  --type-display: clamp(2.5rem, 1.815rem + 5.75vw, 9rem);
-  --type-h1: clamp(2.25rem, 1.5rem + 3.5vw, 7rem);
-  --type-h2: clamp(2rem, 1.25rem + 2.25vw, 5rem);
-  --type-h3: clamp(1.5rem, 0.75rem + 1.75vw, 3.5rem);
-  --type-h4: clamp(1.25rem, 0.6rem + 1.2vw, 2.5rem);
-  --type-h5: clamp(1.25rem, 0.9rem + 1vw, 2rem);
-  --type-p: clamp(0.8rem, 0.2rem + 0.7vw, 1.5rem);
+  /* ------------------------- Scaling System by Osmo [https://osmo.supply/] ------------------------- */
+  --size-unit: 16; /* body font-size in design - no px */
+  --size-container-ideal: 1440; /* screen-size in design - no px */
+  --size-container-min: 992px;
+  --size-container-max: 1920px;
+  --size-container: clamp(
+    var(--size-container-min),
+    100vw,
+    var(--size-container-max)
+  );
+  --size-font: calc(
+    var(--size-container) / (var(--size-container-ideal) / var(--size-unit))
+  );
+
+  /* type scale - 6 unified levels (display · h1 · h2 · h3 · h4 · body),
+     em off --size-font so every size scales together. */
+  --type-display: 5.5em;
+  --type-h1: 4em;
+  --type-h2: 2.5em;
+  --type-h3: 2em;
+  --type-h4: 1.4em;
+  --type-body: 1em;
+  --type-label: 0.75em; /* caps utility (h5) */
+  /* legacy alias → h2 (JS nav wordmark + a few components reference it) */
+  --type-heading: var(--type-h2);
+}
+
+/* Tablet */
+@media screen and (max-width: 991px) {
+  :root {
+    --size-container-ideal: 834;
+    --size-container-min: 768px;
+    --size-container-max: 991px;
+  }
+}
+
+/* Mobile Landscape */
+@media screen and (max-width: 767px) {
+  :root {
+    --size-container-ideal: 550;
+    --size-container-min: 480px;
+    --size-container-max: 767px;
+  }
+}
+
+/* Mobile Portrait */
+@media screen and (max-width: 479px) {
+  :root {
+    --size-container-ideal: 390;
+    --size-container-min: 320px;
+    --size-container-max: 479px;
+  }
 }
 
 @font-face {
@@ -46,29 +90,25 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "PP Editorial New";
-  src: url("/fonts/PPEditorialNew-Ultralight.woff2") format("woff2");
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* overflow-x: clip (not hidden) hides horizontal overflow WITHOUT making the
+   body a scroll container - hidden forces overflow-y:auto, which breaks every
+   `position: sticky` on the page (e.g. .mission-intro-col-lg). */
 body {
   font-family: var(--font);
+  font-size: var(--size-font);
   background-color: var(--bg-page);
   color: var(--text-primary);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 html {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 img {
@@ -83,42 +123,46 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-display);
-  font-weight: 200;
-  line-height: 1.1;
+  font-family: var(--font);
+  font-weight: 500;
   user-select: none;
+  -webkit-font-smoothing: antialiased;
 }
 
 .display {
   font-size: var(--type-display);
-  letter-spacing: -0.075rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
 h1 {
   font-size: var(--type-h1);
-  letter-spacing: -0.05rem;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
 }
 
 h2 {
   font-size: var(--type-h2);
-  letter-spacing: -0.015rem;
-  -webkit-font-smoothing: antialiased;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 
 h3 {
   font-size: var(--type-h3);
-  letter-spacing: -0.0075rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 h4 {
   font-size: var(--type-h4);
+  line-height: 1.2;
   letter-spacing: -0.01em;
 }
 
-/* h5 = body (p) + caps */
+/* h5 = body + caps label */
 h5 {
   font-family: var(--font);
-  font-size: var(--type-p);
+  font-size: var(--type-label);
   font-weight: 500;
   line-height: 1.4;
   letter-spacing: normal;
@@ -129,7 +173,7 @@ h5 {
 p,
 a {
   font-family: var(--font);
-  font-size: var(--type-p);
+  font-size: var(--type-body);
   font-weight: 500;
   line-height: 1.4;
   user-select: none;
@@ -141,6 +185,7 @@ a {
 
 .caps {
   text-transform: uppercase;
+  font-size: var(--type-label);
 }
 
 .dark {

@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 import { useTransitionRouter } from "next-view-transitions";
+import { useLenis } from "lenis/react";
 import gsap from "gsap";
 import CustomEase from "gsap/CustomEase";
 import { useGSAP } from "@gsap/react";
@@ -12,11 +13,24 @@ import { slideInOut } from "@/lib/pageTransition";
 gsap.registerPlugin(CustomEase);
 CustomEase.create("hop", ".15, 1, .25, 1");
 
+// ponytail: hashes → home section ids; FAQ/Contact are pages
+export const NAV_LINKS = [
+  { label: "About", path: "/#about" },
+  { label: "Process", path: "/#values" },
+  { label: "Proof", path: "/#testimonials" },
+  { label: "FAQ's", path: "/faq" },
+];
+
+export const OVERLAY_LINKS = [
+  ...NAV_LINKS,
+  { label: "Contact", path: "/contact" },
+];
+
 const Menu = () => {
   const [isAnimating, setIsAnimating] = useState(false);
-  const [currentTime, setCurrentTime] = useState("");
   const pathname = usePathname();
   const router = useTransitionRouter();
+  const lenis = useLenis();
 
   const menuRef = useRef(null);
   const navRef = useRef(null);
@@ -30,24 +44,24 @@ const Menu = () => {
   const menuItemsRef = useRef(null);
   const menuFooterColsRef = useRef(null);
 
+  // ponytail: home starts display-size; page scrub shrinks to p; other pages p
   useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const timeString = now
-        .toLocaleTimeString("en-US", {
-          hour12: true,
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        })
-        .toUpperCase();
-      setCurrentTime(timeString);
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
+    const el = document.querySelector(".nav .nav-logo-wordmark");
+    if (!el) return;
+    if (pathname === "/") {
+      gsap.set(el, {
+        fontSize: "var(--type-display)",
+        lineHeight: 1.1,
+        autoAlpha: 1,
+      });
+    } else {
+      gsap.set(el, {
+        fontSize: "var(--type-body)",
+        lineHeight: 1.1,
+        autoAlpha: 1,
+      });
+    }
+  }, [pathname]);
 
   useGSAP(
     () => {
@@ -73,21 +87,25 @@ const Menu = () => {
 
   const isExactPath = (path) => pathname === path;
 
-  const navigateTo = (path) => {
-    if (isAnimating) return;
-
-    if (isExactPath(path)) {
-      closeMenu();
+  const goTo = (path) => {
+    if (path.startsWith("/#")) {
+      const id = path.slice(2);
+      if (pathname === "/") {
+        const el = document.getElementById(id);
+        if (el) lenis?.scrollTo(el, { duration: 1.2 });
+        return;
+      }
+      router.push(`/#${id}`, { onTransitionReady: slideInOut });
       return;
     }
+    if (isExactPath(path)) return;
+    router.push(path, { onTransitionReady: slideInOut });
+  };
 
+  const navigateTo = (path) => {
+    if (isAnimating) return;
     closeMenu();
-
-    setTimeout(() => {
-      router.push(path, {
-        onTransitionReady: slideInOut,
-      });
-    }, 0);
+    setTimeout(() => goTo(path), 0);
   };
 
   const openMenu = () => {
@@ -233,8 +251,8 @@ const Menu = () => {
   return (
     <>
       <div className="nav-container">
-        <div className="nav" ref={navRef}>
-          <div className="nav-logo">
+        <div className="nav layout-grid" ref={navRef}>
+          <div className="nav-logo col-span-7 col-start-1">
             <div className="revealer">
               <a
                 href="/"
@@ -248,18 +266,43 @@ const Menu = () => {
                   });
                 }}
               >
-                <span className="nav-logo-target" aria-hidden="true">
-                  GXO Studio
+                <span className="nav-logo-target">
+                  <span className="nav-logo-wordmark">GXO Studio</span>
                 </span>
-                <span className="nav-logo-wordmark">GXO Studio</span>
               </a>
             </div>
           </div>
-          <div className="nav-items">
-            <div className="nav-menu-time">
-              <div className="revealer">
-                <p className="caps">{currentTime}</p>
-              </div>
+          <div className="nav-items col-span-5 col-start-8">
+            <nav className="nav-links" aria-label="Primary">
+              {NAV_LINKS.map(({ label, path }) => (
+                <div className="revealer" key={path}>
+                  <a
+                    href={path}
+                    className="nav-link"
+                    data-cursor="fill"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      goTo(path);
+                    }}
+                  >
+                    {label}
+                  </a>
+                </div>
+              ))}
+            </nav>
+
+            <div className="revealer nav-contact">
+              <a
+                href="/contact"
+                className="nav-link"
+                data-cursor="fill"
+                onClick={(e) => {
+                  e.preventDefault();
+                  goTo("/contact");
+                }}
+              >
+                Contact
+              </a>
             </div>
 
             <div className="nav-menu-toggle-open">
@@ -274,8 +317,8 @@ const Menu = () => {
       </div>
       <div className="menu" ref={menuRef}>
         <div className="menu-overlay" ref={menuOverlayRef}>
-          <div className="menu-overlay-nav">
-            <div className="menu-overlay-nav-logo">
+          <div className="menu-overlay-nav layout-grid">
+            <div className="menu-overlay-nav-logo col-span-7 col-start-1">
               <div className="revealer">
                 <a
                   href="/"
@@ -288,12 +331,7 @@ const Menu = () => {
                 </a>
               </div>
             </div>
-            <div className="menu-overlay-nav-items">
-              <div className="menu-overlay-nav-time">
-                <div className="revealer">
-                  <p className="caps">{currentTime}</p>
-                </div>
-              </div>
+            <div className="menu-overlay-nav-items col-span-5 col-start-8">
               <div className="menu-overlay-nav-toggle-close">
                 <div className="revealer" onClick={closeMenu}>
                   <p className="caps" ref={closeBtnRef}>
@@ -304,58 +342,28 @@ const Menu = () => {
             </div>
           </div>
           <div className="menu-overlay-items" ref={menuItemsRef}>
-            <div className="revealer">
-              <a
-                href="/"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateTo("/");
-                }}
-              >
-                <h1 className="display">Index</h1>
-              </a>
-            </div>
-            <div className="revealer">
-              <a
-                href="/work"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateTo("/work");
-                }}
-              >
-                <h1 className="display">Work</h1>
-              </a>
-            </div>
-            <div className="revealer">
-              <a
-                href="/faq"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateTo("/faq");
-                }}
-              >
-                <h1 className="display">FAQ</h1>
-              </a>
-            </div>
-            <div className="revealer">
-              <a
-                href="/contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateTo("/contact");
-                }}
-              >
-                <h1 className="display">Contact</h1>
-              </a>
-            </div>
+            {OVERLAY_LINKS.map(({ label, path }) => (
+              <div className="revealer" key={path}>
+                <a
+                  href={path}
+                  data-cursor="fill"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo(path);
+                  }}
+                >
+                  <h1 className="display">{label}</h1>
+                </a>
+              </div>
+            ))}
           </div>
-          <div className="menu-footer" ref={menuFooterColsRef}>
-            <div className="menu-footer-col">
+          <div className="menu-footer layout-grid" ref={menuFooterColsRef}>
+            <div className="menu-footer-col col-span-7 col-start-1">
               <div className="revealer">
                 <p className="caps">&copy; 2025 All Rights Reserved</p>
               </div>
             </div>
-            <div className="menu-footer-col">
+            <div className="menu-footer-col col-span-5 col-start-8">
               <div className="socials">
                 <div className="revealer">
                   <a className="caps" href="#">
@@ -369,7 +377,7 @@ const Menu = () => {
                 </div>
                 <div className="revealer">
                   <a className="caps" href="#">
-                    X
+                    LinkedIn
                   </a>
                 </div>
               </div>

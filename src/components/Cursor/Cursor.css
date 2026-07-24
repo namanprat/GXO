@@ -1,0 +1,58 @@
+.cursor {
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: 1000000000;
+  width: 1em;
+  height: 1em;
+  border-radius: 100em;
+  background-color: var(--color-accent);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* secondary CTA - cursor "fills" the button: a translucent pill behind the
+   label. Negative inset makes a pill around bare text without touching layout;
+   z-index -1 keeps it behind the label. */
+[data-cursor="fill"] {
+  position: relative;
+}
+
+[data-cursor="fill"]::before {
+  content: "";
+  position: absolute;
+  inset: -0.4em -0.8em;
+  z-index: -1;
+  border-radius: 100em;
+  background-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
+  transform: scale(0);
+  transition: transform 0.375s cubic-bezier(0.625, 0.05, 0, 1);
+}
+
+[data-cursor="fill"]:hover::before {
+  transform: scale(1);
+}
+
+/* primary CTA - outline appears on hover */
+[data-cursor="outline"] {
+  border-radius: 100em;
+  outline: 1px solid transparent;
+  outline-offset: 0.4em;
+  transition: outline-color 0.3s ease;
+}
+
+[data-cursor="outline"]:hover {
+  outline-color: var(--color-accent);
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-cursor="fill"]::before,
+  [data-cursor="outline"] {
+    transition: none;
+  }
+}

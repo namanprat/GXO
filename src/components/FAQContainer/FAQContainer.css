@@ -1,12 +1,11 @@
 .faq-container {
   width: 100%;
-  padding: 2em;
+  padding-block: 2em;
 }
 
 .faq-wrapper {
-  margin: 0 auto;
-  width: 60%;
-  padding: 2em 0;
+  width: 100%;
+  padding-block: 2em;
 }
 
 .faq-title {
@@ -56,21 +55,11 @@
   margin: 0;
   width: 100%;
   font-family: var(--font);
-  font-size: var(--type-h4);
+  font-size: var(--type-body);
   font-weight: 500;
   line-height: 1.4;
   letter-spacing: normal;
   word-wrap: break-word;
   white-space: normal;
   color: var(--foreground-200);
-}
-
-@media (max-width: 1000px) {
-  .faq-container {
-    padding: 1.25em;
-  }
-
-  .faq-wrapper {
-    width: 100%;
-  }
 }

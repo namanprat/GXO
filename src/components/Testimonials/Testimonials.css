@@ -1,0 +1,254 @@
+.testimonials {
+  position: relative;
+  width: 100%;
+  padding-block: 5rem;
+  row-gap: 1.5rem;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  box-sizing: border-box;
+  align-content: start;
+}
+
+.testimonials__title {
+  text-align: left;
+  margin-bottom: 3rem;
+}
+
+.testimonials__title h1 {
+  text-indent: 28%;
+}
+
+.testimonials__count {
+  margin: 0;
+  color: color-mix(in srgb, var(--text-primary) 55%, transparent);
+}
+
+.testimonials__progress {
+  position: relative;
+  width: 100%;
+  height: 1.5px;
+  background-color: color-mix(in srgb, var(--text-primary) 20%, transparent);
+  overflow: hidden;
+}
+
+.testimonials__progress-fill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background-color: var(--text-primary);
+  transform-origin: left center;
+}
+
+.testimonials__nav {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.testimonials__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--text-primary) 35%, transparent);
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.testimonials__btn-arrow {
+  width: 0.9rem;
+  height: 0.7rem;
+  flex: none;
+}
+
+.testimonials__btn-arrow.next {
+  transform: rotate(180deg);
+}
+
+.testimonials__body {
+  margin-top: 2rem;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.testimonials__body:active {
+  cursor: grabbing;
+}
+
+.testimonials__body-grid {
+  align-items: start;
+  row-gap: 1.5rem;
+}
+
+/* row 2: marker, quote and year sit below the portrait (row 1) */
+.testimonials__rail,
+.testimonials__quote-col,
+.testimonials__year {
+  grid-row: 2;
+}
+
+.testimonials__rail {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 100%;
+  align-self: stretch;
+}
+
+.testimonials__marker {
+  margin: 0;
+  font-size: var(--type-h3);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.testimonials__dot {
+  display: block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-top: auto;
+  border-radius: 50%;
+  background-color: var(--color-black);
+}
+
+/* portrait: image on a black mat. Sits in row 1 (cols 4-5), above the quote -
+   the empty space to its left mirrors the Figma's vertical rhythm. */
+.testimonials__media {
+  grid-row: 1;
+  align-self: start;
+  padding: 14% 15%;
+  aspect-ratio: 217 / 274;
+  background-color: var(--color-black);
+  border-radius: 1px;
+  box-sizing: border-box;
+}
+
+.testimonials__portrait {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1px;
+}
+
+.testimonials__quote-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.testimonials__quote {
+  margin: 0;
+  font-family: var(--font);
+  font-size: var(--type-heading);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  -webkit-font-smoothing: antialiased;
+  color: var(--text-primary);
+}
+
+.testimonials__attr {
+  margin-top: 0.5rem;
+}
+
+.testimonials__name {
+  margin: 0;
+  font-size: var(--type-h3);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.testimonials__company {
+  color: color-mix(in srgb, var(--text-primary) 55%, transparent);
+}
+
+.testimonials__year {
+  margin: 0;
+  text-align: right;
+  font-size: var(--type-h3);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.testimonials__cta-row {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.testimonials__cta {
+  display: inline-block;
+  width: max-content;
+  margin: 0;
+  color: inherit;
+  font-size: var(--type-body);
+  font-weight: 500;
+  line-height: 1.4;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+@media (max-width: 989px) {
+  .testimonials {
+    padding-block: 4rem;
+    row-gap: 1.25rem;
+  }
+
+  .testimonials__title {
+    margin-bottom: 1.5rem;
+  }
+
+  .testimonials__title h1 {
+    max-width: none;
+    font-size: var(--type-h2);
+    text-indent: 0;
+  }
+
+  .testimonials__marker,
+  .testimonials__year,
+  .testimonials__quote,
+  .testimonials__name {
+    font-size: var(--type-h4);
+  }
+
+  .testimonials__body-grid > [class*="col-span-"] {
+    grid-column: 1 / -1;
+  }
+
+  .testimonials__rail {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    min-height: 0;
+  }
+
+  .testimonials__dot {
+    margin-top: 0;
+  }
+
+  .testimonials__year {
+    text-align: left;
+  }
+
+  /* single column: everything stacks in source order, no fixed rows */
+  .testimonials__media,
+  .testimonials__quote-col,
+  .testimonials__rail,
+  .testimonials__year {
+    grid-row: auto;
+  }
+
+  .testimonials__media {
+    max-width: 12rem;
+    margin-bottom: 1.5rem;
+  }
+}

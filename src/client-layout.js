@@ -2,6 +2,8 @@
 
 import Menu from "@/components/Menu/Menu";
 import GrainOverlay from "@/components/GrainOverlay/GrainOverlay";
+import Cursor from "@/components/Cursor/Cursor";
+import GridOverlay from "@/components/GridOverlay/GridOverlay";
 
 import { ReactLenis } from "lenis/react";
 
@@ -19,6 +21,8 @@ export default function ClientLayout({ children }) {
       <>
         <Menu />
         <GrainOverlay />
+        <Cursor />
+        <GridOverlay />
       </>
       {children}
     </ReactLenis>

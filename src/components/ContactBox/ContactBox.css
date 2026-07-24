@@ -1,0 +1,133 @@
+.contact-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 100%;
+  padding: var(--grid-margin);
+  background-color: var(--color-accent);
+  color: var(--text-primary);
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+.contact-box h5 {
+  color: var(--text-primary);
+}
+
+.contact-box-label {
+  margin: 0 0 0.75rem;
+  color: var(--text-primary);
+}
+
+.contact-box-section-title {
+  margin: 0 0 1rem;
+}
+
+.contact-box-role-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.contact-box-role {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: color-mix(in srgb, var(--text-primary) 55%, transparent);
+  font-family: var(--font);
+  font-size: var(--type-label);
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 1.4;
+  text-transform: uppercase;
+  padding: 0.55rem 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 0;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.contact-box-role.is-active {
+  background-color: color-mix(in srgb, var(--text-primary) 12%, transparent);
+  color: var(--text-primary);
+}
+
+.contact-box-role-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background-color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.contact-box-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem 1.5rem;
+}
+
+.contact-box-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-box-field {
+  display: block;
+  width: 100%;
+}
+
+.contact-box-field input,
+.contact-box-field textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--text-primary) 45%, transparent);
+  border-radius: 0;
+  background: transparent;
+  outline: none;
+  padding: 0.35rem 0 0.55rem;
+  font-family: var(--font);
+  font-size: var(--type-body);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-primary);
+  resize: vertical;
+}
+
+.contact-box-field input::placeholder,
+.contact-box-field textarea::placeholder {
+  color: color-mix(in srgb, var(--text-primary) 50%, transparent);
+  font-family: var(--font);
+  font-size: var(--type-body);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.contact-box-field textarea {
+  min-height: 4.5rem;
+}
+
+.contact-box button[type="submit"] {
+  appearance: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin-top: 0.5rem;
+  width: max-content;
+  cursor: pointer;
+  text-align: left;
+  /* Match `a` base so nested h5 `--type-label` (0.75em) resolves like global h5 */
+  font-family: var(--font);
+  font-size: var(--type-body);
+  font-weight: 500;
+}
+
+@media (max-width: 989px) {
+  .contact-box-grid {
+    grid-template-columns: 1fr;
+  }
+}

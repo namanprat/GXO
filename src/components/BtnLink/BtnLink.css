@@ -14,6 +14,12 @@
 
 .anime-link-label h5 {
   margin: 0;
+  font-family: var(--font);
+  font-size: var(--type-label);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: normal;
+  text-transform: uppercase;
 }
 
 .anime-link-icon {
@@ -27,11 +33,11 @@
   z-index: 1;
 }
 
-a.link-dark {
+.link-dark {
   color: var(--text-primary);
 }
 
-a.link-light {
+.link-light {
   color: var(--text-on-dark);
 }
 

@@ -1,12 +1,14 @@
 import "./globals.css";
+import "./grid.css";
 
 import ClientLayout from "@/client-layout";
 
 import { ViewTransitions } from "next-view-transitions";
 
 export const metadata = {
-  title: "GXO Studio",
-  description: "GXO Studio — systems thinking and creative execution for the web.",
+  title: "GXO: Transformation you can trust",
+  description:
+    "An operating model that moves from diagnosis to execution, orchestration and revenue acceleration.",
 };
 
 export default function RootLayout({ children }) {

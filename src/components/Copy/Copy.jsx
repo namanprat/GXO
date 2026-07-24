@@ -25,7 +25,7 @@ export default function Copy({ children, animateOnScroll = true, delay = 0 }) {
     try {
       await document.fonts.ready;
 
-      const customFonts = ["PP Neue Montreal", "PP Editorial New"];
+      const customFonts = ["PP Neue Montreal"];
       const fontCheckPromises = customFonts.map((fontFamily) => {
         return document.fonts.check(`16px ${fontFamily}`);
       });
@@ -68,7 +68,7 @@ export default function Copy({ children, animateOnScroll = true, delay = 0 }) {
           const split = SplitText.create(element, {
             type: "lines",
             mask: "lines",
-            linesClass: "line++",
+            linesClass: "copy-line++",
             lineThreshold: 0.1,
           });
 

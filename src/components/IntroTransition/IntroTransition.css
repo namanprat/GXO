@@ -46,8 +46,8 @@
 
 .intro-counter {
   position: absolute;
-  bottom: 1.5rem;
-  left: 1.5rem;
+  bottom: var(--grid-margin);
+  left: var(--grid-margin);
   z-index: 3;
 }
 
@@ -64,10 +64,12 @@
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
 
+/* ponytail: match the enlarged hero wordmark exactly (size comes from .display) */
 .intro-counter .digit .display {
   position: relative;
   margin: 0;
-  line-height: 0.7;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
   color: var(--color-white);
   white-space: nowrap;
   transform: translateY(120%);

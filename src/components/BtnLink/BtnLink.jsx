@@ -20,6 +20,7 @@ const BtnLink = ({ label, route, dark = false }) => {
       className={dark ? "link-dark" : "link-light"}
       href={route}
       onClick={handleClick}
+      data-cursor="outline"
     >
       <div
         className={`anime-link ${
